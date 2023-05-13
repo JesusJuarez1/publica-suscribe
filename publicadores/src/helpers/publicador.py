@@ -1,6 +1,6 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # Archivo: publicador.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
@@ -23,7 +23,20 @@
 #           |                        |    será enviado          |                       |
 #           +------------------------+--------------------------+-----------------------+
 #
+<<<<<<< HEAD
 #-------------------------------------------------------------------------
+=======
+# -------------------------------------------------------------------------
+# import pika
+
+# def publish(queue, data):
+#     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+#     channel = connection.channel()
+#     channel.queue_declare(queue=queue, durable=True)
+#     channel.basic_publish(exchange='', routing_key=queue, body=data, properties=pika.BasicProperties(delivery_mode=2))
+#     connection.close()
+
+>>>>>>> 1b3f3cc542394103452e695f468ef6fecd2979d8
 import stomp
 
 
@@ -31,4 +44,8 @@ def publish(queue, data):
     conn = stomp.Connection()
     conn.connect('localhost', 61613, wait=True)
     conn.send(queue, data, persistent='true')
+<<<<<<< HEAD
     conn.disconnect()
+=======
+    conn.disconnect()
+>>>>>>> 1b3f3cc542394103452e695f468ef6fecd2979d8

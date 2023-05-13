@@ -1,6 +1,6 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # Archivo: monitor.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
@@ -61,8 +61,12 @@
 #           |                        |    mensaje recibido      |                       |
 #           +------------------------+--------------------------+-----------------------+
 #
-#-------------------------------------------------------------------------
-import json, time, pika, sys
+# -------------------------------------------------------------------------
+import json
+import time
+import pika
+import sys
+
 
 class Monitor:
 
@@ -76,7 +80,8 @@ class Monitor:
 
     def consume(self, queue, callback):
         try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+            connection = pika.BlockingConnection(
+                pika.ConnectionParameters(host='localhost'))
             channel = connection.channel()
             channel.queue_declare(queue=queue, durable=True)
             channel.basic_qos(prefetch_count=1)
@@ -94,6 +99,7 @@ class Monitor:
         print()
         time.sleep(1)
         ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
 if __name__ == '__main__':
     monitor = Monitor()

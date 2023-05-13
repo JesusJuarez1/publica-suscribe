@@ -1,6 +1,6 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # Archivo: record.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
@@ -61,8 +61,13 @@
 #           |                        |    mensaje recibido      |                       |
 #           +------------------------+--------------------------+-----------------------+
 #
-#-------------------------------------------------------------------------
-import json, time, pika, sys, os
+# -------------------------------------------------------------------------
+import json
+import time
+import pika
+import sys
+import os
+
 
 class Record:
 
@@ -80,7 +85,8 @@ class Record:
 
     def consume(self, queue, callback):
         try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+            connection = pika.BlockingConnection(
+                pika.ConnectionParameters(host='localhost'))
             channel = connection.channel()
             channel.queue_declare(queue=queue, durable=True)
             channel.basic_qos(prefetch_count=1)
@@ -93,11 +99,12 @@ class Record:
     def callback(self, ch, method, properties, body):
         print("datos recibidos, actualizando expediente del paciente...")
         data = json.loads(body.decode("utf-8"))
-        record_file = open (f"./records/{data['ssn']}.txt",'a')
+        record_file = open(f"./records/{data['ssn']}.txt", 'a')
         record_file.write(f"\n[{data['wearable']['date']}]: {data['name']} {data['last_name']}... ssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}")
         record_file.close()
         time.sleep(1)
         ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
 if __name__ == '__main__':
     record = Record()
