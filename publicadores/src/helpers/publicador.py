@@ -24,11 +24,11 @@
 #           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------
-import pika
+import stomp
+
 
 def publish(queue, data):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-    channel = connection.channel()
-    channel.queue_declare(queue=queue, durable=True)
-    channel.basic_publish(exchange='', routing_key=queue, body=data, properties=pika.BasicProperties(delivery_mode=2))
-    connection.close()
+    conn = stomp.Connection()
+    conn.connect('localhost', 61613, wait=True)
+    conn.send(queue, data, persistent='true')
+    conn.disconnect()

@@ -105,6 +105,16 @@ Este repositorio contiene los siguientes directorios y archivos:
 
     Este comando correrá un contenedor de docker con la imagen de RabbitMQ, el cual seguirá corriendo hasta que sea detenido explícitamente.
 
+
+- ActiveMQ
+   venv: pip install stomp.py
+   ```shell
+    $ docker run -it --rm --name activemq -p 61613:61613 -p 8161:8161 rmohr/activemq
+    http://localhost:8161
+    usuario: admin
+    contraseña: admin
+    ```
+
 ## Ejecución
 
 Sigue las siguientes instrucciones para ejecutar los diferentes componentes del sistema.
