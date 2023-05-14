@@ -10,6 +10,10 @@ En la siguiente figura se muestra el diseño de la propuesta de solución del de
 
 ![Vista de contenedores del SMAM](docs/context-view.png)
 
+A continuación se muestra la vista de módulos del Sistema de Monitoreo de Adultos Mayores (SMAM) en el que se implementa en el distriburidor de mensajes la Tecnología utilizada que es ActiveMQ.
+
+![Vista de contenedores del SMAM](docs/containers-view.png)
+
 ## Estructura del proyecto
 
 Este repositorio contiene los siguientes directorios y archivos:
