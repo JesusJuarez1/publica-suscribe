@@ -79,17 +79,7 @@ class Notifier:
         self.conn.connect('admin', 'admin', wait=True)
         self.conn.subscribe(destination=self.topic, id=1, ack='auto')
 
-    def consume(self, queue, callback):
-        try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-            channel = connection.channel()
-            channel.queue_declare(queue=queue, durable=True)
-            channel.basic_qos(prefetch_count=1)
-            channel.basic_consume(on_message_callback=callback, queue=queue)
-            channel.start_consuming()
-        except (KeyboardInterrupt, SystemExit):
-            channel.close()
-            sys.exit("Conexión finalizada...")
+    
 
     def on_message(self, headers, message):
         print("enviando notificación de signos vitales...")
