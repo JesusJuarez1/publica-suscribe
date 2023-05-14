@@ -63,20 +63,21 @@
 #           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------
-import json, time, pika, sys
+import json, time, stomp, sys
 import telepot
 
 class Notifier:
 
     def __init__(self):
         self.topic = "notifier"
-        self.token = ""
-        self.chat_id = ""
+        self.conn = stomp.Connection([('localhost', 61613)])
+        self.conn.set_listener('', self.on_message)
 
     def suscribe(self):
         print("Inicio de gestión de notificaciones...")
         print()
-        self.consume(queue=self.topic, callback=self.callback)
+        self.conn.connect('admin', 'admin', wait=True)
+        self.conn.subscribe(destination=self.topic, id=1, ack='auto')
 
     def consume(self, queue, callback):
         try:
@@ -90,16 +91,23 @@ class Notifier:
             channel.close()
             sys.exit("Conexión finalizada...")
 
-    def callback(self, ch, method, properties, body):
+    def on_message(self, headers, message):
         print("enviando notificación de signos vitales...")
-        if self.token and self.chat_id:
-            data = json.loads(body.decode("utf-8"))
-            message = f"ADVERTENCIA!!!\n[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}...\nssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}"
-            bot = telepot.Bot(self.token)
-            bot.sendMessage(self.chat_id, message)
+        data = json.loads(message)
+        print("ADVERTENCIA!!!")
+        print(f"[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}... con wearable {data['wearable']['id']}")
+        print(f"ssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}")
+        print()
         time.sleep(1)
-        ch.basic_ack(delivery_tag=method.delivery_tag)
+        
+    def disconnect(self):
+        self.conn.disconnect()
+        print("Conexión finalizada...")
+        
+    
 
 if __name__ == '__main__':
     notifier = Notifier()
     notifier.suscribe()
+    input("Presione cualquier tecla para detener el notificador...")
+    notifier.disconnect()
