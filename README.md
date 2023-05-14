@@ -17,7 +17,7 @@ Este repositorio contiene los siguientes directorios y archivos:
 ```bash
     ├── docs                                # carpeta de documentación
     │  ├── context-view.png                 # vista del contexto del sistema
-    │  ├── smam.drawio                      # archivo editable de daiagramas del sistema
+    │  ├── smam.drawio                      # archivo editable de daiagramas del sistema 
     ├── publicadores                        # publicadores del sistema
     |  ├── src                              # código fuente de los publicadores
     │     ├── devices                       # archivos de definición de dispositivos
@@ -26,7 +26,7 @@ Este repositorio contiene los siguientes directorios y archivos:
     │        ├── xiaomi_my_band.py          # simulador de dispositivo de hardware Xiaomi
     │     ├── helpers                       # archivos auxiliares del sistema
     │        ├── __init__.py                # indica la definición de módulo python
-    │        ├── publicador.py              # archivo auxiliar de comunicación con el distribuidor de mensajes
+    │        ├── publicador.py              # archivo auxiliar de comunicación con el distribuidor de mensajes 
     │     ├── __init__.py                   # indica la definición de módulo python
     │     ├── patient.py                    # representación de un adulto mayor en el sistema
     |  ├── main.py                          # archivo principal de ejecución de publicadores
@@ -39,89 +39,71 @@ Este repositorio contiene los siguientes directorios y archivos:
     ├── requirements.txt                    # dependencias del sistema
 ```
 
+
 ## Prerrequisitos
-
 - Clonar el repositorio:
-  ```shell
-  $ git clone https://gitlab.com/tareas-arquitectura-de-software-curso/publica-suscribe
-  $ cd publica-subscribe
-  ```
+   ```shell
+   $ git clone https://gitlab.com/tareas-arquitectura-de-software-curso/publica-suscribe
+   $ cd publica-subscribe
+   ```
 - Contar con python 3.8 o superior y pip3 (las pruebas fueron realizadas con la versión 3.8). Se recomienda utilizar [pyenv](https://github.com/pyenv/pyenv) como manejador de versiones de python; una vez instalado se pueden seguir los siguientes comandos para instalar la versión deseada de python, esto hay que realizarlo en la raíz del repositorio:
-
-  ```shell
-  $ pyenv install 3.8
-  $ pyenv local 3.8
-  ```
+   ```shell
+   $ pyenv install 3.8
+   $ pyenv local 3.8
+   ```
 
 - Crear un ambiente virtual para manejar las dependencias ejecutando:
+   ```shell
+   $ python3 -m venv venv
+   ```
 
-  ```shell
-  $ python3 -m venv venv
-  ```
+   en Windows:
+   ```shell
+   $ python3 -m venv venv
+   ```
 
-  en Windows:
+   si no funciona el comando anterior, ejecutar el siguiente:
+   ```shell
+   $ py -3 -m venv venv
+   ```
 
-  ```shell
-  $ python3 -m venv venv
-  ```
-
-  si no funciona el comando anterior, ejecutar el siguiente:
-
-  ```shell
-  $ py -3 -m venv venv
-  ```
-
-  Esto creará una carpeta llamada "venv" que representa nuestro ambiente virtual y donde instalaremos todas las dependencias.
+   Esto creará una carpeta llamada "venv" que representa nuestro ambiente virtual y donde instalaremos todas las dependencias.
 
 - Activamos el ambiente virtual:
+   ```shell
+   $ source venv/bin/activate
+   ```
 
-  ```shell
-  $ source venv/bin/activate
-  ```
-
-  o en Windows:
-
-  ```shell
-  $ venv\Scripts\activate
-  ```
+   o en Windows:
+   ```shell
+   $ venv\Scripts\activate
+   ```
 
 - Instalamos las dependencias del sistema ejecutando:
+   ```shell
+   (venv)$ pip3 install -r requirements.txt 
+   ```
 
-  ```shell
-  (venv)$ pip3 install -r requirements.txt
-  ```
+   Los paquetes que se instalarán son los siguientes:
 
-  Los paquetes que se instalarán son los siguientes:
+   Paquete | Versión | Descripción
+   --------|---------|------------
+   pika   | 1.1.0   | Implementación del protocolo AMQP 0-9-1 y que incuye la extensión de RabbitMQ
+   Faker  | 13.3.0  | Generador de datos falsos
+   telepot| 12.7    | Api de Telegram
 
-  | Paquete | Versión | Descripción                                                                   |
-  | ------- | ------- | ----------------------------------------------------------------------------- |
-  | pika    | 1.1.0   | Implementación del protocolo AMQP 0-9-1 y que incuye la extensión de RabbitMQ |
-  | Faker   | 13.3.0  | Generador de datos falsos                                                     |
-  | telepot | 12.7    | Api de Telegram                                                               |
-
-  _**Nota**: También puedes instalar estos prerrequisitos manualmente ejecutando los siguientes comandos:_
-
-  > pip3 install pika== 1.1.0
-  > pip3 install Faker==13.3.0
-  > pip3 install telepot==12.7
+   *__Nota__: También puedes instalar estos prerrequisitos manualmente ejecutando los siguientes comandos:*   
+   > pip3 install pika== 1.1.0
+   > pip3 install Faker==13.3.0
+   > pip3 install telepot==12.7
 
 - Instalamos RabbitMQ. La manera recomendada para implementar una instancia de RabbitMQ es utilizando [Docker](https://www.docker.com/), para instalarlo puedes seguir las instrucciones para cada sistema operativo haciendo clic [aquí](https://docs.docker.com/install/). Una vez instalado docker podemos ejecutar el siguiente comando:
 
-  ```shell
-  $ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-  ```
-
-  Este comando correrá un contenedor de docker con la imagen de RabbitMQ, el cual seguirá corriendo hasta que sea detenido explícitamente.
-
-
-- ActiveMQ
-   venv: pip install stomp.py
-   ```shell
-    $ docker run -it --rm --name activemq -p 61613:61613 -p 8161:8161 rmohr/activemq
-    http://localhost:8161
-    usuario: admin
-    contraseña: admin
+    ```shell
+    $ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
     ```
+
+    Este comando correrá un contenedor de docker con la imagen de RabbitMQ, el cual seguirá corriendo hasta que sea detenido explícitamente.
 
 ## Ejecución
 
@@ -132,56 +114,52 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
 ### Publicador
 
 - Entramos a la carpeta `publicadores`:
-
-  ```shell
-  (venv)$ cd publicadores
-  ```
+   ```shell
+   (venv)$ cd publicadores
+   ```
 
 - Ejecutamos el archivo `main.py`:
-  ```shell
-  (venv)$ python main.py
-  ```
+   ```shell
+   (venv)$ python main.py
+   ```
 
 ### Suscriptores
 
 **Notificador de alertas**
 
 - Entramos a la carpeta `suscriptores`:
-
-  ```shell
-  (venv)$ cd suscriptores
-  ```
+   ```shell
+   (venv)$ cd suscriptores
+   ```
 
 - Ejecutamos el archivo `notifier.py`:
-  ```shell
-  (venv)$ python notifier.py
-  ```
+   ```shell
+   (venv)$ python notifier.py
+   ```
 
 **Log**
 
 - Entramos a la carpeta `suscriptores`:
-
-  ```shell
-  (venv)$ cd suscriptores
-  ```
+   ```shell
+   (venv)$ cd suscriptores
+   ```
 
 - Ejecutamos el archivo `record.py`:
-  ```shell
-  (venv)$ python record.py
-  ```
+   ```shell
+   (venv)$ python record.py
+   ```
 
 **Monitor**
 
 - Entramos a la carpeta `suscriptores`:
-
-  ```shell
-  (venv)$ cd suscriptores
-  ```
+   ```shell
+   (venv)$ cd suscriptores
+   ```
 
 - Ejecutamos el archivo `monitor.py`:
-  ```shell
-  (venv)$ python monitor.py
-  ```
+   ```shell
+   (venv)$ python monitor.py
+   ```
 
 ## Versión
 
@@ -189,9 +167,7 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
 
 ## Autores
 
-- **Perla Velasco**
-- **Yonathan Martínez**
-- **Sergio Salazar**
-- **Jorge Solis**
-
-docker run -it --rm --name activemq -p 61613:61613 -p 8161:8161 rmohr/activemq
+* **Perla Velasco**
+* **Yonathan Martínez**
+* **Sergio Salazar**
+* **Jorge Solis**

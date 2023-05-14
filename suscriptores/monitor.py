@@ -1,6 +1,6 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# -------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Archivo: monitor.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
@@ -61,46 +61,37 @@
 #           |                        |    mensaje recibido      |                       |
 #           +------------------------+--------------------------+-----------------------+
 #
-# -------------------------------------------------------------------------
-import json
-import time
-import pika
-import sys
+#-------------------------------------------------------------------------
 
+import json, time, stomp
 
 class Monitor:
 
     def __init__(self):
         self.topic = "monitor"
+        self.conn = stomp.Connection([('localhost', 61613)])
+        self.conn.set_listener('', self.on_message)
 
     def suscribe(self):
         print("Inicio de monitoreo de signos vitales...")
         print()
-        self.consume(queue=self.topic, callback=self.callback)
+        self.conn.connect('admin', 'admin', wait=True)
+        self.conn.subscribe(destination=self.topic, id=1, ack='auto')
 
-    def consume(self, queue, callback):
-        try:
-            connection = pika.BlockingConnection(
-                pika.ConnectionParameters(host='localhost'))
-            channel = connection.channel()
-            channel.queue_declare(queue=queue, durable=True)
-            channel.basic_qos(prefetch_count=1)
-            channel.basic_consume(on_message_callback=callback, queue=queue)
-            channel.start_consuming()
-        except (KeyboardInterrupt, SystemExit):
-            channel.close()
-            sys.exit("Conexión finalizada...")
-
-    def callback(self, ch, method, properties, body):
-        data = json.loads(body.decode("utf-8"))
+    def on_message(self, headers, message):
+        data = json.loads(message)
         print("ADVERTENCIA!!!")
         print(f"[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}... con wearable {data['wearable']['id']}")
         print(f"ssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}")
         print()
         time.sleep(1)
-        ch.basic_ack(delivery_tag=method.delivery_tag)
 
+    def disconnect(self):
+        self.conn.disconnect()
+        print("Conexión finalizada...")
 
 if __name__ == '__main__':
     monitor = Monitor()
     monitor.suscribe()
+    input("Presione cualquier tecla para detener el monitoreo...")
+    monitor.disconnect()
