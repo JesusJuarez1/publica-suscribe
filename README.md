@@ -97,13 +97,9 @@ Este repositorio contiene los siguientes directorios y archivos:
    > pip3 install Faker==13.3.0
    > pip3 install telepot==12.7
 
-- Instalamos RabbitMQ. La manera recomendada para implementar una instancia de RabbitMQ es utilizando [Docker](https://www.docker.com/), para instalarlo puedes seguir las instrucciones para cada sistema operativo haciendo clic [aquí](https://docs.docker.com/install/). Una vez instalado docker podemos ejecutar el siguiente comando:
+## Instalación ActiveMQ
 
-    ```shell
-    $ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-    ```
-
-    Este comando correrá un contenedor de docker con la imagen de RabbitMQ, el cual seguirá corriendo hasta que sea detenido explícitamente.
+- 
 
 ## Ejecución
 
