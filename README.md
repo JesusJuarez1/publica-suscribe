@@ -99,13 +99,13 @@ Este repositorio contiene los siguientes directorios y archivos:
 
   | Paquete | Versión | Descripción                                                                   |
   | ------- | ------- | ----------------------------------------------------------------------------- |
-  | pika    | 1.1.0   | Implementación del protocolo AMQP 0-9-1 y que incuye la extensión de RabbitMQ |
   | Faker   | 13.3.0  | Generador de datos falsos                                                     |
   | telepot | 12.7    | Api de Telegram                                                               |
+  | stomp   | 8.1.0   | Protocolo de mensajería simple que proporciona la extensión de ActiveMQ       |
 
   _**Nota**: También puedes instalar estos prerrequisitos manualmente ejecutando los siguientes comandos:_
 
-  > pip3 install pika== 1.1.0
+  > pip3 install stop== 8.1.0
   > pip3 install Faker==13.3.0
   > pip3 install telepot==12.7
 
@@ -175,7 +175,7 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
 
 ## Versión
 
-2.2.0 - Marzo 2022
+2.2.1 - Abril 2023
 
 ## Autores
 
