@@ -4,62 +4,20 @@
 # Archivo: monitor.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
-# Version: 3.0.0 Marzo 2022
+#Editor(es): Víctor Ubaldo Silva Luna
+#            Joseph Antuan Martínez Alvarado
+#            Fernando Félix Salinas
+#            Daniel Alejandro Morales Castillo
+#            Jesús Manuel Juárez Pasillas
+#            Eric Castañeda Estrada.
+
+# Version: 4.0.0 Mayo 2023
 # Descripción:
 #
 #   Esta clase define el suscriptor que recibirá mensajes desde el distribuidor de mensajes
 #   y los mostrará al área interesada para su monitoreo continuo
 #
 #   Este archivo también define el punto de ejecución del Suscriptor
-#
-#   A continuación se describen los métodos que se implementaron en esta clase:
-#
-#                                             Métodos:
-#           +------------------------+--------------------------+-----------------------+
-#           |         Nombre         |        Parámetros        |        Función        |
-#           +------------------------+--------------------------+-----------------------+
-#           |       __init__()       |  - self: definición de   |  - constructor de la  |
-#           |                        |    la instancia de la    |    clase              |
-#           |                        |    clase                 |                       |
-#           +------------------------+--------------------------+-----------------------+
-#           |       suscribe()       |  - self: definición de   |  - inicializa el      |
-#           |                        |    la instancia de la    |    proceso de         |
-#           |                        |    clase                 |    monitoreo de       |
-#           |                        |                          |    signos vitales     |
-#           +------------------------+--------------------------+-----------------------+
-#           |        consume()       |  - self: definición de   |  - realiza la         |
-#           |                        |    la instancia de la    |    suscripción en el  |
-#           |                        |    clase                 |    distribuidor de    |
-#           |                        |  - queue: ruta a la que  |    mensajes para      |
-#           |                        |    el suscriptor está    |    comenzar a recibir |
-#           |                        |    interesado en recibir |    mensajes           |
-#           |                        |    mensajes              |                       |
-#           |                        |  - callback: accion a    |                       |
-#           |                        |    ejecutar al recibir   |                       |
-#           |                        |    el mensaje desde el   |                       |
-#           |                        |    distribuidor de       |                       |
-#           |                        |    mensajes              |                       |
-#           +------------------------+--------------------------+-----------------------+
-#           |       callback()       |  - self: definición de   |  - muetra en pantalla |
-#           |                        |    la instancia de la    |    los datos del      |
-#           |                        |    clase                 |    adulto mayor       |
-#           |                        |  - ch: canal de          |    recibidos desde el |
-#           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
-#           |                        |    distribuidor de       |                       |
-#           |                        |    mensajes [propio de   |                       |
-#           |                        |    RabbitMQ]             |                       |
-#           |                        |  - method: método de     |                       |
-#           |                        |    conexión utilizado en |                       |
-#           |                        |    la suscripción        |                       |
-#           |                        |    [propio de RabbitMQ]  |                       |
-#           |                        |  - properties:           |                       |
-#           |                        |    propiedades de la     |                       |
-#           |                        |    conexión [propio de   |                       |
-#           |                        |    RabbitMQ]             |                       |
-#           |                        |  - body: contenido del   |                       |
-#           |                        |    mensaje recibido      |                       |
-#           +------------------------+--------------------------+-----------------------+
 #
 # -------------------------------------------------------------------------
 

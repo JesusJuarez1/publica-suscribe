@@ -3,8 +3,14 @@
 #-------------------------------------------------------------------------
 # Archivo: main.py
 # Capitulo: Estilo Publica-Suscribe
-# Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
-# Version: 3.0.0 Marzo 2022
+#Editor(es): Víctor Ubaldo Silva Luna
+#            Joseph Antuan Martínez Alvarado
+#            Fernando Félix Salinas
+#            Daniel Alejandro Morales Castillo
+#            Jesús Manuel Juárez Pasillas
+#            Eric Castañeda Estrada.
+
+# Version: 4.0.0 Mayo 2023
 # Descripción:
 #
 #   Este archivo define el punto de ejecución del Publicador
